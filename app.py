@@ -1,6 +1,7 @@
 import os
 import io
 import csv
+import re
 from flask import Flask, request, jsonify, Response
 import pg8000.dbapi
 
@@ -45,6 +46,12 @@ def is_safe_query(sql_query: str) -> bool:
             
     return True
 
+def clean_whitespace(val):
+    """Collapse any 1 or more whitespaces into a single space and strip."""
+    if isinstance(val, str):
+        return re.sub(r'\s+', ' ', val).strip()
+    return val
+
 def execute_sql(database: str, sql: str):
     conn = None
     try:
@@ -61,7 +68,11 @@ def execute_sql(database: str, sql: str):
         # Extract columns and rows
         columns = [desc[0] for desc in cursor.description] if cursor.description else []
         rows = cursor.fetchall()
-        return columns, rows, None
+        
+        # Clean whitespace for string fields
+        cleaned_rows = [tuple(clean_whitespace(val) for val in row) for row in rows]
+        
+        return columns, cleaned_rows, None
     except Exception as e:
         return None, None, str(e)
     finally:

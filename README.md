@@ -64,6 +64,9 @@ Executes the SQL query and returns results as a downloadable CSV file. This is t
 
 *Note: For security, only read-only queries (`SELECT` or `WITH`) are allowed. Destructive statements like `DROP`, `DELETE`, or query stacking via multiple semicolons are automatically blocked.*
 
+### Automatic Data Cleaning
+To ensure that exported data remains clean and well-formatted (especially for CSV import into Excel), all string/text fields retrieved from the database undergo automatic whitespace cleaning. Any sequence of whitespace characters (including spaces, tabs, and newlines) is collapsed into a single space, and leading/trailing whitespace is stripped.
+
 ---
 
 ## Loading Data into Excel (Zero Drivers Required)
