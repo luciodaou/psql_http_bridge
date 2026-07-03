@@ -1,0 +1,14 @@
+services:
+  postgres-bridge:
+    build: .
+    container_name: postgres-bridge
+    restart: unless-stopped
+    ports:
+      # Securely bind to localhost (127.0.0.1) only, preventing exposure to the local network.
+      # WSL2 automatically forwards localhost:13714 from Windows to WSL2.
+      - "127.0.0.1:13714:13714"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_READONLY_USER=${DB_READONLY_USER}
+      - DB_READONLY_PASSWORD=${DB_READONLY_PASSWORD}
