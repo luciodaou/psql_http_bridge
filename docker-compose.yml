@@ -12,3 +12,9 @@ services:
       - DB_PORT=${DB_PORT}
       - DB_READONLY_USER=${DB_READONLY_USER}
       - DB_READONLY_PASSWORD=${DB_READONLY_PASSWORD}
+      - ALLOWED_DATABASES=${ALLOWED_DATABASES:-${database:-}}
+      - ALLOWED_SCHEMAS=${ALLOWED_SCHEMAS:-${schema:-}}
+      - ALLOWED_TABLES=${ALLOWED_TABLES:-${tables:-}}
+      - database=${database:-${ALLOWED_DATABASES:-}}
+      - schema=${schema:-${ALLOWED_SCHEMAS:-}}
+      - tables=${tables:-${ALLOWED_TABLES:-}}

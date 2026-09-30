@@ -28,6 +28,15 @@ This directory contains a lightweight Python web service running inside Docker (
    DB_PORT=5432
    DB_READONLY_USER=your_readonly_user
    DB_READONLY_PASSWORD=your_password
+
+   # Access control allowlists (comma-separated, leave blank or omit to allow any)
+   ALLOWED_DATABASES=db_despesas
+   ALLOWED_SCHEMAS=public
+   ALLOWED_TABLES=
+
+   # Convenience aliases
+   database=db_despesas
+   schema=public
    ```
 
 2. **Start the Bridge**:
